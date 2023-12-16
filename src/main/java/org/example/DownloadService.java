@@ -7,7 +7,7 @@ public interface DownloadService {
 
     List<DownloadInfo> getDownloadInfos(long packageId);
 
-    // You may need to handle IOException for real-world scenarios
+    // We have to handle IOException for real-world scenarios
     InputStream downloadFile(DownloadInfo downloadInfo);
 
 

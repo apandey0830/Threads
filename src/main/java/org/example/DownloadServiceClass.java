@@ -7,7 +7,6 @@ import java.util.List;
 
 public class DownloadServiceClass implements DownloadService{
 
-    // Placeholder data for testing
     private List<DownloadInfo> downloadInfoList;
 
     public DownloadServiceClass() {
@@ -19,15 +18,14 @@ public class DownloadServiceClass implements DownloadService{
 
     @Override
     public List<DownloadInfo> getDownloadInfos(long packageId) {
-        // Implement your logic to fetch DownloadInfo based on packageId
-        // For simplicity, return the sample data
+        // We have to implement the logic to fetch DownloadInfo based on packageId
+        // For simplicity, returning the sample data
         return downloadInfoList;
     }
 
     @Override
     public InputStream downloadFile(DownloadInfo downloadInfo) {
-        // Implement your logic to download file content based on DownloadInfo
-        // For simplicity, return a placeholder byte array
+        // We have implement the logic to download file content based on DownloadInfo
         return new InputStream() {
             @Override
             public int read() throws IOException {

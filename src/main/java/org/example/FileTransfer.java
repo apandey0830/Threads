@@ -1,6 +1,5 @@
 package org.example;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
@@ -24,22 +23,22 @@ public class FileTransfer {
 
             for (DownloadInfo downloadInfo : downloadInfos) {
                 Callable<FileTransferResult> fileTransferTask = () -> {
-                    // Check file size constraint
+                    // Checking the file size constraint
                     if (downloadInfo.getSize() > MAX_CONCURRENT_SIZE) {
                         return new FileTransferResult(downloadInfo.getOriginalFileName(), false, "File size exceeds limit", System.currentTimeMillis());
                     }
 
-                    // Check file name uniqueness
+                    // Checking the file name uniqueness
                     if (!isFileNameUnique(downloadInfo.getOriginalFileName(), downloadInfos)) {
                         return new FileTransferResult(downloadInfo.getOriginalFileName(), false, "File name is not unique", System.currentTimeMillis());
                     }
 
-                    // Check file extension constraint
+                    // Checking the file extension constraint
                     if (!isAllowedExtension(downloadInfo.getOriginalFileName())) {
                         return new FileTransferResult(downloadInfo.getOriginalFileName(), false, "File extension not allowed", System.currentTimeMillis());
                     }
 
-                    // Download and upload file
+                    // Downloading and uploading file
                     try {
                         long uploadStartTime = System.currentTimeMillis();
                         uploadService.doUpload(downloadInfo.getFileKey(), downloadService.downloadFile(downloadInfo), downloadInfo.getSize());
@@ -59,7 +58,7 @@ public class FileTransfer {
             executorService.shutdown();
             executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 
-            // Process the results
+            // Processing the results
             for (Future<FileTransferResult> future : futures) {
                 try {
                     FileTransferResult result = future.get();
